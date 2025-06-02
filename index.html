@@ -1,0 +1,1562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>USStateFlags - The Ultimate React State Component </title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 20px 60px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.05)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.05)"/><circle cx="50" cy="10" r="0.5" fill="rgba(255,255,255,0.03)"/><circle cx="10" cy="60" r="0.5" fill="rgba(255,255,255,0.03)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.3;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            margin-bottom: 16px;
+            background: linear-gradient(45deg, #fff, #e3f2fd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 2px 20px rgba(255,255,255,0.3);
+        }
+        
+        .hero-subtitle {
+            font-size: 1.25rem;
+            margin-bottom: 32px;
+            opacity: 0.95;
+            font-weight: 400;
+        }
+        
+        .hero-features {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+        
+        .feature-pill {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .feature-pill:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+        }
+        
+        .cta-button {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 4px 15px rgba(238, 90, 36, 0.4);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(238, 90, 36, 0.6);
+        }
+        
+        .main-container {
+            background: white;
+            border-radius: 20px 20px 0 0;
+            margin-top: -20px;
+            position: relative;
+            z-index: 10;
+            min-height: 80vh;
+        }
+        
+        .content-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 24px;
+        }
+        
+        .section {
+            margin-bottom: 80px;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .section-description {
+            font-size: 1.1rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .why-us-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+            margin-bottom: 48px;
+        }
+        
+        .why-us-card {
+            background: linear-gradient(135deg, #f8f9ff 0%, #f0f4ff 100%);
+            border: 1px solid #e6f0ff;
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .why-us-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.15);
+        }
+        
+        .why-us-icon {
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+            display: block;
+        }
+        
+        .why-us-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #2d3748;
+        }
+        
+        .why-us-text {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .demo-container {
+            background: #fafbfc;
+            border: 2px solid #e6f0ff;
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 24px;
+            transition: all 0.3s ease;
+        }
+        
+        .demo-container:hover {
+            box-shadow: 0 8px 30px rgba(102, 126, 234, 0.12);
+        }
+        
+        .demo-preview {
+            padding: 48px 24px;
+            text-align: center;
+            background: linear-gradient(135deg, #fafbfc 0%, #f0f4ff 100%);
+            border-bottom: 2px solid #e6f0ff;
+            position: relative;
+        }
+        
+        .demo-title {
+            position: absolute;
+            top: 16px;
+            left: 20px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #4a5568;
+        }
+        
+        .demo-controls {
+            background: white;
+            padding: 16px 20px;
+            border-bottom: 1px solid #e6f0ff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .demo-description {
+            font-size: 14px;
+            color: #666;
+            flex: 1;
+        }
+        
+        .demo-actions {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .action-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            position: relative;
+        }
+        
+        .action-button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+        
+        .action-button .tooltip {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #2d3748;
+            color: white;
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            margin-bottom: 4px;
+        }
+        
+        .action-button:hover .tooltip {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .action-button .tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 4px solid transparent;
+            border-top-color: #2d3748;
+        }
+        
+        .code-section {
+            background: #1a202c;
+            padding: 0;
+            display: none;
+            animation: slideDown 0.3s ease;
+        }
+        
+        .code-section.show {
+            display: block;
+        }
+        
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .code-tabs {
+            display: flex;
+            background: #2d3748;
+            border-bottom: 1px solid #4a5568;
+        }
+        
+        .code-tab {
+            background: none;
+            border: none;
+            color: #a0aec0;
+            padding: 14px 20px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
+        }
+        
+        .code-tab.active {
+            color: #fff;
+            background: #1a202c;
+            border-bottom-color: #667eea;
+        }
+        
+        .code-tab:hover:not(.active) {
+            color: #e2e8f0;
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .code-content {
+            position: relative;
+        }
+        
+        .code-header {
+            background: #2d3748;
+            padding: 12px 16px;
+            border-bottom: 1px solid #4a5568;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .code-language {
+            color: #a0aec0;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .copy-button {
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        .copy-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(72, 187, 120, 0.4);
+        }
+        
+        .copy-button.copied {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .code-block {
+            background: #1a202c;
+            color: #e2e8f0;
+            padding: 20px;
+            font-family: 'JetBrains Mono', 'Fira Code', 'Monaco', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            overflow-x: auto;
+            white-space: pre;
+        }
+        
+        /* Syntax highlighting */
+        .token.keyword { color: #f093d4; }
+        .token.string { color: #9ae6b4; }
+        .token.comment { color: #718096; }
+        .token.function { color: #90cdf4; }
+        .token.punctuation { color: #e2e8f0; }
+        .token.tag { color: #f6ad55; }
+        .token.attr-name { color: #90cdf4; }
+        .token.attr-value { color: #9ae6b4; }
+        
+        /* Component Styles */
+        .us-state-display {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 16px;
+            background: white;
+            border: 2px solid #e6f0ff;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            margin: 6px;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.08);
+        }
+        
+        .us-state-display:hover {
+            border-color: #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.15);
+        }
+        
+        .us-state-display.layout-vertical {
+            flex-direction: column;
+            text-align: center;
+        }
+        
+        .us-state-flag {
+            border-radius: 4px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            /* SVG-specific optimizations */
+            object-fit: contain;
+            shape-rendering: auto;
+            image-rendering: auto;
+        }
+        
+        .state-name {
+            font-weight: 600;
+            color: #2d3748;
+            font-size: 15px;
+        }
+        
+        .state-abbreviation {
+            font-weight: 700;
+            color: #667eea;
+            background: linear-gradient(135deg, #e6f0ff 0%, #f0f4ff 100%);
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 12px;
+            border: 1px solid #cbd5e0;
+        }
+        
+        .state-capital {
+            color: #666;
+            font-size: 13px;
+            font-style: italic;
+        }
+        
+        .us-state-display.error {
+            background: #fed7d7;
+            border-color: #fc8181;
+            color: #c53030;
+        }
+        
+        .us-state-display.interactive {
+            cursor: pointer;
+            border-color: #667eea;
+            background: linear-gradient(135deg, #f0f4ff 0%, #e6f0ff 100%);
+        }
+        
+        .us-state-display.interactive:hover {
+            background: linear-gradient(135deg, #e6f0ff 0%, #dbeafe 100%);
+            border-color: #4c63d2;
+        }
+        
+        /* SVG Flag loading states */
+        .flag-loading, .flag-error {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            font-size: 10px;
+            text-align: center;
+            font-weight: 500;
+        }
+        
+        .flag-loading {
+            background: #f7fafc;
+            border: 1px dashed #cbd5e0;
+            color: #718096;
+        }
+        
+        .flag-error {
+            background: #fed7d7;
+            border: 1px solid #fc8181;
+            color: #c53030;
+            flex-direction: column;
+        }
+        
+        /* API Table */
+        .api-section {
+            background: #fafbfc;
+            border-radius: 16px;
+            padding: 32px;
+            border: 2px solid #e6f0ff;
+        }
+        
+        .api-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.08);
+        }
+        
+        .api-table th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 16px 12px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .api-table td {
+            padding: 16px 12px;
+            border-bottom: 1px solid #f0f4ff;
+            font-size: 14px;
+            vertical-align: top;
+        }
+        
+        .api-table tr:hover {
+            background: #f8faff;
+        }
+        
+        .prop-name {
+            font-family: 'JetBrains Mono', monospace;
+            color: #e53e3e;
+            font-weight: 600;
+            font-size: 13px;
+            background: #fef5e7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            border: 1px solid #fed7aa;
+        }
+        
+        .prop-type {
+            font-family: 'JetBrains Mono', monospace;
+            color: #3182ce;
+            font-size: 13px;
+            background: #ebf8ff;
+            padding: 2px 6px;
+            border-radius: 4px;
+            border: 1px solid #bee3f8;
+        }
+        
+        .prop-default {
+            font-family: 'JetBrains Mono', monospace;
+            color: #38a169;
+            font-size: 13px;
+            background: #f0fff4;
+            padding: 2px 6px;
+            border-radius: 4px;
+            border: 1px solid #9ae6b4;
+        }
+        
+        .prop-required {
+            color: #e53e3e;
+            font-size: 11px;
+            font-weight: 600;
+            background: #fed7d7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-left: 8px;
+        }
+        
+        .notification {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+            color: white;
+            padding: 16px 20px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(72, 187, 120, 0.3);
+            z-index: 1000;
+            animation: slideInRight 0.3s ease;
+            font-weight: 500;
+        }
+        
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        @media (max-width: 768px) {
+            .hero-features {
+                gap: 12px;
+            }
+            
+            .feature-pill {
+                font-size: 12px;
+                padding: 6px 12px;
+            }
+            
+            .demo-controls {
+                flex-direction: column;
+                gap: 12px;
+                align-items: flex-start;
+            }
+            
+            .demo-actions {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-title">🇺🇸 USStateFlags</h1>
+            <p class="hero-subtitle">The most comprehensive and developer-friendly React component for US state data with crisp SVG flags</p>
+            
+            <div class="hero-features">
+                <span class="feature-pill">🚀 Zero Dependencies</span>
+                <span class="feature-pill">🎨 Scalable SVG Flags</span>
+                <span class="feature-pill">⚡ Tree Shakeable</span>
+                <span class="feature-pill">📘 TypeScript Ready</span>
+            </div>
+            
+            <a href="#examples" class="cta-button">
+                Explore Examples ↓
+            </a>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <div class="content-wrapper">
+            <div class="section">
+                <div class="section-header">
+                    <h2 class="section-title">Why Choose USStateFlags?</h2>
+                    <p class="section-description">Built by developers, for developers. Now with crisp SVG flags that scale perfectly at any size.</p>
+                </div>
+                
+                <div class="why-us-grid">
+                    <div class="why-us-card">
+                        <span class="why-us-icon">⚡</span>
+                        <h3 class="why-us-title">Lightning Fast</h3>
+                        <p class="why-us-text">Optimized bundle size with tree shaking support. Only load what you need.</p>
+                    </div>
+                    <div class="why-us-card">
+                        <span class="why-us-icon">🎯</span>
+                        <h3 class="why-us-title">Crisp SVG Flags</h3>
+                        <p class="why-us-text">Vector-based flags that look perfect at any size, from tiny icons to large displays.</p>
+                    </div>
+                    <div class="why-us-card">
+                        <span class="why-us-icon">🛡️</span>
+                        <h3 class="why-us-title">Rock Solid</h3>
+                        <p class="why-us-text">Built-in error handling, prop validation, and TypeScript support.</p>
+                    </div>
+                    <div class="why-us-card">
+                        <span class="why-us-icon">🎨</span>
+                        <h3 class="why-us-title">Highly Customizable</h3>
+                        <p class="why-us-text">15+ props for complete control over appearance and behavior.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="examples">
+                <div class="section-header">
+                    <h2 class="section-title">Live Examples</h2>
+                    <p class="section-description">Interactive demos showing the full power and flexibility of USStateFlags with crisp SVG flags</p>
+                </div>
+                
+                <div id="examples-container"></div>
+            </div>
+
+            <div class="section">
+                <div class="section-header">
+                    <h2 class="section-title">Complete API Reference</h2>
+                    <p class="section-description">Every prop, every option, every possibility documented in detail</p>
+                </div>
+                
+                <div class="api-section">
+                    <table class="api-table">
+                        <thead>
+                            <tr>
+                                <th>Property</th>
+                                <th>Description</th>
+                                <th>Type</th>
+                                <th>Default</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <span class="prop-name">state</span>
+                                    <span class="prop-required">required</span>
+                                </td>
+                                <td>State abbreviation ("TX") or full name ("Texas")</td>
+                                <td><span class="prop-type">string</span></td>
+                                <td><span class="prop-default">—</span></td>
+                            </tr>
+                            <tr>
+                                <td><span class="prop-name">showFlag</span></td>
+                                <td>Whether to display the state flag image (SVG format)</td>
+                                <td><span class="prop-type">boolean</span></td>
+                                <td><span class="prop-default">false</span></td>
+                            </tr>
+                            <tr>
+                                <td><span class="prop-name">showName</span></td>
+                                <td>Whether to display the full state name</td>
+                                <td><span class="prop-type">boolean</span></td>
+                                <td><span class="prop-default">false</span></td>
+                            </tr>
+                            <tr>
+                                <td><span class="prop-name">showAbbreviation</span></td>
+                                <td>Whether to display the state abbreviation badge</td>
+                                <td><span class="prop-type">boolean</span></td>
+                                <td><span class="prop-default">false</span></td>
+                            </tr>
+                            <tr>
+                                <td><span class="prop-name">showCapital</span></td>
+                                <td>Whether to display the state capital city</td>
+                                <td><span class="prop-type">boolean</span></td>
+                                <td><span class="prop-default">false</span></td>
+                            </tr>
+                            <tr>
+                                <td><span class="prop-name">flagSize</span></td>
+                                <td>Size of the SVG flag (affects width/height via CSS)</td>
+                                <td><span class="prop-type">'xs' | 'sm' | 'md' | 'lg'</span></td>
+                                <td><span class="prop-default">'md'</span></td>
+                            </tr>
+                            <tr>
+                                <td><span class="prop-name">flagAlt</span></td>
+                                <td>Custom alt text for the flag image (accessibility)</td>
+                                <td><span class="prop-type">string</span></td>
+                                <td><span class="prop-default">"{state.name} flag"</span></td>
+                            </tr>
+                            <tr>
+                                <td><span class="prop-name">layout</span></td>
+                                <td>Layout direction of the component elements</td>
+                                <td><span class="prop-type">'horizontal' | 'vertical'</span></td>
+                                <td><span class="prop-default">'horizontal'</span></td>
+                            </tr>
+                            <tr>
+                                <td><span class="prop-name">className</span></td>
+                                <td>Additional CSS class name(s) for custom styling</td>
+                                <td><span class="prop-type">string</span></td>
+                                <td><span class="prop-default">''</span></td>
+                            </tr>
+                            <tr>
+                                <td><span class="prop-name">style</span></td>
+                                <td>Inline styles for the main container element</td>
+                                <td><span class="prop-type">CSSProperties</span></td>
+                                <td><span class="prop-default">{}</span></td>
+                            </tr>
+                            <tr>
+                                <td><span class="prop-name">nameStyle</span></td>
+                                <td>Inline styles specifically for the state name text</td>
+                                <td><span class="prop-type">CSSProperties</span></td>
+                                <td><span class="prop-default">{}</span></td>
+                            </tr>
+                            <tr>
+                                <td><span class="prop-name">abbreviationStyle</span></td>
+                                <td>Inline styles specifically for the abbreviation badge</td>
+                                <td><span class="prop-type">CSSProperties</span></td>
+                                <td><span class="prop-default">{}</span></td>
+                            </tr>
+                            <tr>
+                                <td><span class="prop-name">capitalStyle</span></td>
+                                <td>Inline styles specifically for the capital city text</td>
+                                <td><span class="prop-type">CSSProperties</span></td>
+                                <td><span class="prop-default">{}</span></td>
+                            </tr>
+                            <tr>
+                                <td><span class="prop-name">onClick</span></td>
+                                <td>Click event handler that receives the full state data object</td>
+                                <td><span class="prop-type">(stateData: StateData) => void</span></td>
+                                <td><span class="prop-default">—</span></td>
+                            </tr>
+                            <tr>
+                                <td><span class="prop-name">onFlagLoad</span></td>
+                                <td>Callback fired when the SVG flag successfully loads</td>
+                                <td><span class="prop-type">() => void</span></td>
+                                <td><span class="prop-default">—</span></td>
+                            </tr>
+                            <tr>
+                                <td><span class="prop-name">onFlagError</span></td>
+                                <td>Callback fired when the SVG flag fails to load</td>
+                                <td><span class="prop-type">() => void</span></td>
+                                <td><span class="prop-default">—</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/babel">
+        // Enhanced state data with SVG flags only
+        const statesData = [
+            {
+                "name": "Texas",
+                "abbreviation": "TX",
+                "territory": false,
+                "capital": "Austin",
+                "contiguous": true,
+                "timezone": ["America/Chicago"],
+                "logo": {
+                    "svg": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3Crect width='1' height='2' fill='%23002868'/%3E%3Crect x='1' width='2' height='1' fill='%23FFFFFF'/%3E%3Crect x='1' y='1' width='2' height='1' fill='%23BF0A30'/%3E%3Cpolygon points='0.2,0.3 0.5,0.15 0.8,0.3 0.7,0.6 0.3,0.6' fill='%23FFFFFF'/%3E%3C/svg%3E"
+                }
+            },
+            {
+                "name": "Florida",
+                "abbreviation": "FL",
+                "territory": false,
+                "capital": "Tallahassee",
+                "contiguous": true,
+                "timezone": ["America/New_York", "America/Chicago"],
+                "logo": {
+                    "svg": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3Crect width='3' height='2' fill='%23FFFFFF'/%3E%3Cpath d='M0,0 L3,2 M3,0 L0,2' stroke='%23BF0A30' stroke-width='0.2'/%3E%3Ccircle cx='1.5' cy='1' r='0.4' fill='none' stroke='%23BF0A30' stroke-width='0.1'/%3E%3C/svg%3E"
+                }
+            },
+            {
+                "name": "New York",
+                "abbreviation": "NY",
+                "territory": false,
+                "capital": "Albany",
+                "contiguous": true,
+                "timezone": ["America/New_York"],
+                "logo": {
+                    "svg": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3Crect width='3' height='2' fill='%23002868'/%3E%3Crect x='0.3' y='0.3' width='2.4' height='1.4' fill='%23FFFFFF'/%3E%3Ccircle cx='1.5' cy='1' r='0.3' fill='%23002868'/%3E%3C/svg%3E"
+                }
+            },
+            {
+                "name": "California",
+                "abbreviation": "CA",
+                "territory": false,
+                "capital": "Sacramento",
+                "contiguous": true,
+                "timezone": ["America/Los_Angeles"],
+                "logo": {
+                    "svg": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3Crect width='3' height='2' fill='%23FFFFFF'/%3E%3Crect x='0' y='0' width='3' height='0.4' fill='%23BF0A30'/%3E%3Crect x='0' y='1.6' width='3' height='0.4' fill='%23BF0A30'/%3E%3Ccircle cx='0.7' cy='1' r='0.2' fill='%23FFD700'/%3E%3C/svg%3E"
+                }
+            },
+            {
+                "name": "Washington",
+                "abbreviation": "WA",
+                "territory": false,
+                "capital": "Olympia",
+                "contiguous": true,
+                "timezone": ["America/Los_Angeles"],
+                "logo": {
+                    "svg": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3E%3Crect width='3' height='2' fill='%23006633'/%3E%3Ccircle cx='1.5' cy='1' r='0.3' fill='%23FFFFFF'/%3E%3Ctext x='1.5' y='1.1' text-anchor='middle' fill='%23006633' font-size='0.3' font-family='Arial'%3EW%3C/text%3E%3C/svg%3E"
+                }
+            }
+        ];
+
+        // Helper functions
+        const getStateByName = (name) => {
+            if (!name || typeof name !== 'string') return null;
+            return statesData.find(state => 
+                state.name.toLowerCase() === name.toLowerCase()
+            ) || null;
+        };
+
+        const getStateByAbbreviation = (abbr) => {
+            if (!abbr || typeof abbr !== 'string') return null;
+            return statesData.find(state => 
+                state.abbreviation.toLowerCase() === abbr.toLowerCase()
+            ) || null;
+        };
+
+        // Enhanced USStateFlags Component (SVG-only version)
+        const USStateFlags = ({
+            state,
+            showFlag = false,
+            showName = false,
+            showAbbreviation = false,
+            showCapital = false,
+            flagSize = 'md',
+            flagAlt,
+            layout = 'horizontal',
+            className = '',
+            style = {},
+            nameStyle = {},
+            abbreviationStyle = {},
+            capitalStyle = {},
+            onClick,
+            onFlagLoad,
+            onFlagError
+        }) => {
+            const [imageError, setImageError] = React.useState(false);
+            const [imageLoaded, setImageLoaded] = React.useState(true);
+
+            // Enhanced validation
+            const validateAndGetState = () => {
+                const errors = [];
+                
+                // Check if at least one display option is enabled
+                if (!showFlag && !showName && !showAbbreviation && !showCapital) {
+                    errors.push('At least one display option must be enabled');
+                }
+                
+                // Validate flag-related props only when showFlag is false
+                if (!showFlag) {
+                    const flagProps = [];
+                    if (flagSize !== 'md') flagProps.push('flagSize');
+                    if (flagAlt) flagProps.push('flagAlt');
+                    
+                    if (flagProps.length > 0) {
+                        errors.push(`${flagProps.join(', ')} can only be used when showFlag=true`);
+                    }
+                }
+                
+                // Find state data
+                let stateData = null;
+                if (state) {
+                    stateData = getStateByAbbreviation(state) || getStateByName(state);
+                }
+                
+                if (!stateData) {
+                    errors.push(`State "${state}" not found`);
+                }
+                
+                return { errors, stateData };
+            };
+
+            const { errors, stateData } = validateAndGetState();
+
+            // Show validation errors
+            if (errors.length > 0) {
+                const isStateNotFound = errors.some(error => error.includes('not found'));
+                const isConfigError = errors.some(error => !error.includes('not found'));
+                
+                if (isStateNotFound) {
+                    return (
+                        <div className={`us-state-display error ${className}`} style={style}>
+                            ❌ State "{state}" not found
+                        </div>
+                    );
+                }
+                
+                if (isConfigError) {
+                    return (
+                        <div className={`us-state-display error ${className}`} style={style}>
+                            ⚠️ {errors.find(error => !error.includes('not found'))}
+                        </div>
+                    );
+                }
+            }
+
+            // Get flag image path (SVG only)
+            const getFlagImagePath = () => {
+                if (!showFlag || !stateData) return '';
+                return stateData.logo.svg;
+            };
+
+            // Get flag dimensions for CSS sizing
+            const getFlagDimensions = () => {
+                const dimensions = {
+                    xs: { width: 16, height: 12 },
+                    sm: { width: 36, height: 27 },
+                    md: { width: 75, height: 56 },
+                    lg: { width: 225, height: 169 }
+                };
+                return dimensions[flagSize] || dimensions.md;
+            };
+
+            const handleClick = () => {
+                if (onClick) {
+                    onClick(stateData);
+                }
+            };
+
+            const handleImageLoad = () => {
+                setImageError(false);
+                setImageLoaded(true);
+                if (onFlagLoad) {
+                    onFlagLoad();
+                }
+            };
+
+            const handleImageError = () => {
+                setImageError(true);
+                setImageLoaded(false);
+                if (onFlagError) {
+                    onFlagError();
+                }
+            };
+
+            return (
+                <div 
+                    className={`us-state-display layout-${layout} svg-flags ${onClick ? 'interactive' : ''} ${className}`}
+                    style={{
+                        display: 'inline-flex',
+                        alignItems: layout === 'horizontal' ? 'center' : 'flex-start',
+                        flexDirection: layout === 'horizontal' ? 'row' : 'column',
+                        gap: layout === 'horizontal' ? '10px' : '6px',
+                        cursor: onClick ? 'pointer' : 'default',
+                        ...style
+                    }}
+                    onClick={handleClick}
+                >
+                    {showFlag && !imageError && (
+                        <img
+                            src={getFlagImagePath()}
+                            alt={flagAlt || `${stateData.name} flag`}
+                            className="us-state-flag"
+                            style={{
+                                ...getFlagDimensions(),
+                                objectFit: 'contain',
+                                display: 'block',
+                                imageRendering: flagSize === 'xs' ? 'pixelated' : 'auto',
+                                shapeRendering: 'auto'
+                            }}
+                            onLoad={handleImageLoad}
+                            onError={handleImageError}
+                        />
+                    )}
+
+                    {showFlag && !imageLoaded && !imageError && (
+                        <div 
+                            className="flag-loading"
+                            style={{
+                                ...getFlagDimensions(),
+                                backgroundColor: '#f5f5f5',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                fontSize: '10px',
+                                color: '#999',
+                                border: '1px dashed #ddd',
+                                borderRadius: '4px'
+                            }}
+                        >
+                            Loading SVG...
+                        </div>
+                    )}
+
+                    {showFlag && imageError && (
+                        <div 
+                            className="flag-error"
+                            style={{
+                                ...getFlagDimensions(),
+                                backgroundColor: '#ffebee',
+                                border: '1px solid #ffcdd2',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                fontSize: '10px',
+                                color: '#d32f2f',
+                                textAlign: 'center',
+                                borderRadius: '4px',
+                                flexDirection: 'column'
+                            }}
+                        >
+                            <span>🚫</span>
+                            <span style={{ marginTop: '2px' }}>SVG Failed</span>
+                        </div>
+                    )}
+                    
+                    <div style={{
+                        display: 'flex',
+                        flexDirection: layout === 'horizontal' ? 'row' : 'column',
+                        alignItems: layout === 'horizontal' ? 'center' : 'flex-start',
+                        gap: layout === 'horizontal' ? '10px' : '4px'
+                    }}>
+                        {showName && (
+                            <span className="state-name" style={nameStyle}>
+                                {stateData.name}
+                            </span>
+                        )}
+                        
+                        {showAbbreviation && (
+                            <span className="state-abbreviation" style={abbreviationStyle}>
+                                {stateData.abbreviation}
+                            </span>
+                        )}
+                        
+                        {showCapital && (
+                            <span className="state-capital" style={capitalStyle}>
+                                Capital: {stateData.capital}
+                            </span>
+                        )}
+                    </div>
+                </div>
+            );
+        };
+
+        // Enhanced Demo App
+        const App = () => {
+            const [notification, setNotification] = React.useState('');
+            const [activeTab, setActiveTab] = React.useState({});
+
+            const showNotification = (message) => {
+                setNotification(message);
+                setTimeout(() => setNotification(''), 3000);
+            };
+
+            const copyToClipboard = (text, buttonId) => {
+                navigator.clipboard.writeText(text).then(() => {
+                    const button = document.getElementById(buttonId);
+                    const originalText = button.innerHTML;
+                    button.innerHTML = '✓ Copied!';
+                    button.classList.add('copied');
+                    setTimeout(() => {
+                        button.innerHTML = originalText;
+                        button.classList.remove('copied');
+                    }, 2000);
+                    showNotification('Code copied to clipboard!');
+                });
+            };
+
+            const toggleCode = (id) => {
+                const codeEl = document.getElementById(id);
+                codeEl.classList.toggle('show');
+            };
+
+            const setCodeTab = (demoId, tab) => {
+                setActiveTab(prev => ({ ...prev, [demoId]: tab }));
+            };
+
+            const demos = [
+                {
+                    id: 'basic',
+                    title: 'Basic Usage with SVG Flag',
+                    description: 'Simple state display with crisp SVG flag and name - perfect scaling at any size.',
+                    jsCode: `<USStateFlags 
+  state="TX" 
+  showFlag={true} 
+  showName={true} 
+/>`,
+                    tsCode: `import { USStateFlags } from 'us-state-flags/components';
+
+<USStateFlags 
+  state="TX" 
+  showFlag={true} 
+  showName={true} 
+/>`,
+                    component: <USStateFlags state="TX" showFlag={true} showName={true} />
+                },
+                {
+                    id: 'sizes',
+                    title: 'SVG Flag Size Comparison',
+                    description: 'Vector flags that scale perfectly - from tiny 16px icons to large 225px displays.',
+                    jsCode: `// Extra Small (16px) - Perfect for list items
+<USStateFlags state="TX" showFlag={true} flagSize="xs" />
+
+// Small (36px) - Great for compact layouts  
+<USStateFlags state="TX" showFlag={true} flagSize="sm" />
+
+// Medium (75px) - Default size
+<USStateFlags state="TX" showFlag={true} flagSize="md" />
+
+// Large (225px) - Hero displays
+<USStateFlags state="TX" showFlag={true} flagSize="lg" />`,
+                    tsCode: `import { USStateFlags } from 'us-state-flags/components';
+
+// Extra Small (16px) - Perfect for list items
+<USStateFlags state="TX" showFlag={true} flagSize="xs" />
+
+// Small (36px) - Great for compact layouts  
+<USStateFlags state="TX" showFlag={true} flagSize="sm" />
+
+// Medium (75px) - Default size
+<USStateFlags state="TX" showFlag={true} flagSize="md" />
+
+// Large (225px) - Hero displays
+<USStateFlags state="TX" showFlag={true} flagSize="lg" />`,
+                    component: (
+                        <div style={{ display: 'flex', gap: '20px', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center' }}>
+                            <div style={{ textAlign: 'center' }}>
+                                <USStateFlags state="TX" showFlag={true} flagSize="xs" />
+                                <div style={{ fontSize: '12px', color: '#666', marginTop: '4px' }}>xs (16px)</div>
+                            </div>
+                            <div style={{ textAlign: 'center' }}>
+                                <USStateFlags state="TX" showFlag={true} flagSize="sm" />
+                                <div style={{ fontSize: '12px', color: '#666', marginTop: '4px' }}>sm (36px)</div>
+                            </div>
+                            <div style={{ textAlign: 'center' }}>
+                                <USStateFlags state="TX" showFlag={true} flagSize="md" />
+                                <div style={{ fontSize: '12px', color: '#666', marginTop: '4px' }}>md (75px)</div>
+                            </div>
+                            <div style={{ textAlign: 'center' }}>
+                                <USStateFlags state="TX" showFlag={true} flagSize="lg" />
+                                <div style={{ fontSize: '12px', color: '#666', marginTop: '4px' }}>lg (225px)</div>
+                            </div>
+                        </div>
+                    )
+                },
+                {
+                    id: 'complete',
+                    title: 'Complete Information Display',
+                    description: 'Show everything - SVG flag, name, abbreviation, and capital city in one component.',
+                    jsCode: `<USStateFlags 
+  state="FL" 
+  showFlag={true}
+  showName={true}
+  showAbbreviation={true}
+  showCapital={true}
+/>`,
+                    tsCode: `import { USStateFlags } from 'us-state-flags/components';
+
+<USStateFlags 
+  state="FL" 
+  showFlag={true}
+  showName={true}
+  showAbbreviation={true}
+  showCapital={true}
+/>`,
+                    component: (
+                        <USStateFlags 
+                            state="FL" 
+                            showFlag={true}
+                            showName={true}
+                            showAbbreviation={true}
+                            showCapital={true}
+                        />
+                    )
+                },
+                {
+                    id: 'vertical',
+                    title: 'Vertical Layout with Large SVG',
+                    description: 'Perfect for cards, sidebars, and mobile-friendly layouts with crisp vector graphics.',
+                    jsCode: `<USStateFlags 
+  state="NY" 
+  showFlag={true}
+  showName={true}
+  showCapital={true}
+  layout="vertical"
+  flagSize="lg"
+/>`,
+                    tsCode: `import { USStateFlags } from 'us-state-flags/components';
+
+<USStateFlags 
+  state="NY" 
+  showFlag={true}
+  showName={true}
+  showCapital={true}
+  layout="vertical"
+  flagSize="lg"
+/>`,
+                    component: (
+                        <USStateFlags 
+                            state="NY" 
+                            showFlag={true}
+                            showName={true}
+                            showCapital={true}
+                            layout="vertical"
+                            flagSize="lg"
+                        />
+                    )
+                },
+                {
+                    id: 'custom-styling',
+                    title: 'Custom Styling Power',
+                    description: 'Take full control with custom styles for every element, SVG flags included.',
+                    jsCode: `<USStateFlags 
+  state="CA" 
+  showFlag={true}
+  showName={true}
+  showAbbreviation={true}
+  nameStyle={{
+    color: '#e53e3e',
+    fontSize: '18px',
+    fontWeight: 'bold'
+  }}
+  abbreviationStyle={{
+    background: 'linear-gradient(45deg, #ff6b6b, #ee5a24)',
+    color: 'white',
+    border: 'none'
+  }}
+  style={{
+    background: 'linear-gradient(135deg, #667eea, #764ba2)',
+    color: 'white',
+    borderColor: '#4c63d2'
+  }}
+/>`,
+                    tsCode: `import { USStateFlags } from 'us-state-flags/components';
+
+<USStateFlags 
+  state="CA" 
+  showFlag={true}
+  showName={true}
+  showAbbreviation={true}
+  nameStyle={{
+    color: '#e53e3e',
+    fontSize: '18px',
+    fontWeight: 'bold'
+  }}
+  abbreviationStyle={{
+    background: 'linear-gradient(45deg, #ff6b6b, #ee5a24)',
+    color: 'white',
+    border: 'none'
+  }}
+  style={{
+    background: 'linear-gradient(135deg, #667eea, #764ba2)',
+    color: 'white',
+    borderColor: '#4c63d2'
+  }}
+/>`,
+                    component: (
+                        <USStateFlags 
+                            state="CA" 
+                            showFlag={true}
+                            showName={true}
+                            showAbbreviation={true}
+                            nameStyle={{
+                                color: '#e53e3e',
+                                fontSize: '18px',
+                                fontWeight: 'bold'
+                            }}
+                            abbreviationStyle={{
+                                background: 'linear-gradient(45deg, #ff6b6b, #ee5a24)',
+                                color: 'white',
+                                border: 'none'
+                            }}
+                            style={{
+                                background: 'linear-gradient(135deg, #667eea, #764ba2)',
+                                color: 'white',
+                                borderColor: '#4c63d2'
+                            }}
+                        />
+                    )
+                },
+                {
+                    id: 'interactive',
+                    title: 'Interactive & Clickable',
+                    description: 'Add click handlers for dynamic applications and user interactions with SVG flags.',
+                    jsCode: `const handleStateClick = (stateData) => {
+  console.log('Clicked state:', stateData);
+  alert(\`You clicked \${stateData.name}!\`);
+};
+
+<USStateFlags 
+  state="WA" 
+  showFlag={true}
+  showName={true}
+  showCapital={true}
+  onClick={handleStateClick}
+/>`,
+                    tsCode: `import { USStateFlags, StateData } from 'us-state-flags/components';
+
+const handleStateClick = (stateData: StateData) => {
+  console.log('Clicked state:', stateData);
+  alert(\`You clicked \${stateData.name}!\`);
+};
+
+<USStateFlags 
+  state="WA" 
+  showFlag={true}
+  showName={true}
+  showCapital={true}
+  onClick={handleStateClick}
+/>`,
+                    component: (
+                        <USStateFlags 
+                            state="WA" 
+                            showFlag={true}
+                            showName={true}
+                            showCapital={true}
+                            onClick={(stateData) => showNotification(`🎉 You clicked ${stateData.name}! Capital: ${stateData.capital}`)}
+                        />
+                    )
+                },
+                {
+                    id: 'errors',
+                    title: 'Built-in Error Handling',
+                    description: 'Robust validation and user-friendly error messages for SVG flags and all props.',
+                    jsCode: `// Invalid state code
+<USStateFlags state="INVALID" showName={true} />
+
+// No display options enabled
+<USStateFlags state="TX" />
+
+// Invalid flag props (flagSize without showFlag)
+<USStateFlags 
+  state="TX" 
+  showName={true} 
+  showFlag={false} 
+  flagSize="lg" 
+/>`,
+                    tsCode: `import { USStateFlags } from 'us-state-flags/components';
+
+// Invalid state code
+<USStateFlags state="INVALID" showName={true} />
+
+// No display options enabled
+<USStateFlags state="TX" />
+
+// Invalid flag props (flagSize without showFlag)
+<USStateFlags 
+  state="TX" 
+  showName={true} 
+  showFlag={false} 
+  flagSize="lg" 
+/>`,
+                    component: (
+                        <div style={{ display: 'flex', gap: '16px', flexDirection: 'column', alignItems: 'flex-start' }}>
+                            <USStateFlags state="INVALID" showName={true} />
+                            <USStateFlags state="TX" />
+                            <USStateFlags state="TX" showName={true} showFlag={false} flagSize="lg" />
+                        </div>
+                    )
+                },
+                {
+                    id: 'multiple-states',
+                    title: 'Multiple States Gallery',
+                    description: 'Showcase multiple states with their crisp SVG flags in a responsive grid.',
+                    jsCode: `const states = ['TX', 'FL', 'NY', 'CA', 'WA'];
+
+<div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px' }}>
+  {states.map(state => (
+    <USStateFlags 
+      key={state}
+      state={state} 
+      showFlag={true}
+      showName={true}
+      showAbbreviation={true}
+      layout="vertical"
+      flagSize="md"
+    />
+  ))}
+</div>`,
+                    tsCode: `import { USStateFlags } from 'us-state-flags/components';
+
+const states = ['TX', 'FL', 'NY', 'CA', 'WA'];
+
+<div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px' }}>
+  {states.map(state => (
+    <USStateFlags 
+      key={state}
+      state={state} 
+      showFlag={true}
+      showName={true}
+      showAbbreviation={true}
+      layout="vertical"
+      flagSize="md"
+    />
+  ))}
+</div>`,
+                    component: (
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px', width: '100%' }}>
+                            {['TX', 'FL', 'NY', 'CA', 'WA'].map(state => (
+                                <USStateFlags 
+                                    key={state}
+                                    state={state} 
+                                    showFlag={true}
+                                    showName={true}
+                                    showAbbreviation={true}
+                                    layout="vertical"
+                                    flagSize="md"
+                                />
+                            ))}
+                        </div>
+                    )
+                }
+            ];
+
+            return (
+                <div>
+                    {notification && (
+                        <div className="notification">
+                            {notification}
+                        </div>
+                    )}
+                    
+                    {demos.map((demo) => (
+                        <div key={demo.id} className="demo-container">
+                            <div className="demo-preview">
+                                <div className="demo-title">{demo.title}</div>
+                                {demo.component}
+                            </div>
+                            <div className="demo-controls">
+                                <div className="demo-description">
+                                    {demo.description}
+                                </div>
+                                <div className="demo-actions">
+                                    <button 
+                                        className="action-button" 
+                                        onClick={() => toggleCode(`code-${demo.id}`)}
+                                    >
+                                        📋 Code
+                                        <span className="tooltip">View source code</span>
+                                    </button>
+                                    <button 
+                                        className="action-button"
+                                        id={`copy-${demo.id}`}
+                                        onClick={() => copyToClipboard(demo.jsCode, `copy-${demo.id}`)}
+                                    >
+                                        📄 Copy
+                                        <span className="tooltip">Copy to clipboard</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div id={`code-${demo.id}`} className="code-section">
+                                <div className="code-tabs">
+                                    <button 
+                                        className={`code-tab ${(activeTab[demo.id] || 'js') === 'js' ? 'active' : ''}`}
+                                        onClick={() => setCodeTab(demo.id, 'js')}
+                                    >
+                                        JavaScript
+                                    </button>
+                                    <button 
+                                        className={`code-tab ${activeTab[demo.id] === 'ts' ? 'active' : ''}`}
+                                        onClick={() => setCodeTab(demo.id, 'ts')}
+                                    >
+                                        TypeScript
+                                    </button>
+                                </div>
+                                {(activeTab[demo.id] || 'js') === 'js' ? (
+                                    <div className="code-content">
+                                        <div className="code-header">
+                                            <span className="code-language">JavaScript</span>
+                                            <button 
+                                                className="copy-button"
+                                                onClick={() => copyToClipboard(demo.jsCode, `copy-js-${demo.id}`)}
+                                                id={`copy-js-${demo.id}`}
+                                            >
+                                                📋 Copy
+                                            </button>
+                                        </div>
+                                        <pre className="code-block">{demo.jsCode}</pre>
+                                    </div>
+                                ) : (
+                                    <div className="code-content">
+                                        <div className="code-header">
+                                            <span className="code-language">TypeScript</span>
+                                            <button 
+                                                className="copy-button"
+                                                onClick={() => copyToClipboard(demo.tsCode, `copy-ts-${demo.id}`)}
+                                                id={`copy-ts-${demo.id}`}
+                                            >
+                                                📋 Copy
+                                            </button>
+                                        </div>
+                                        <pre className="code-block">{demo.tsCode}</pre>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            );
+        };
+
+        // Render
+        const root = ReactDOM.createRoot(document.getElementById('examples-container'));
+        root.render(<App />);
+    </script>
+</body>
+</html>

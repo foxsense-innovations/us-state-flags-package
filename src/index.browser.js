@@ -826,5 +826,4 @@
   exports.getCount = getCount;
   exports.isValidAbbreviation = isValidAbbreviation;
   exports.USStateFlags = USStateFlags;
-
 }));

@@ -47,7 +47,7 @@ console.log(california);
 ### React Component
 
 ```jsx
-import { USStateFlags } from 'us-state-flags/components';
+import { USStateFlags } from 'us-state-flags';
 
 function App() {
   return (
@@ -214,25 +214,6 @@ const isValid = isValidAbbreviation('CA'); // true
 const notValid = isValidAbbreviation('ZZ'); // false
 ```
 
-## 🌍 Browser Usage
-
-### Via CDN
-
-```html
-<script src="https://unpkg.com/us-state-flags@latest/src/index.browser.js"></script>
-<script>
-  // Global variable: usStateFlags
-  const california = usStateFlags.getStateByName('California');
-  console.log(california);
-</script>
-```
-
-### ES Modules in Browser
-
-```javascript
-import { getStateByName, states } from 'https://unpkg.com/us-state-flags@latest/src/index.mjs';
-
-const texas = getStateByName('Texas');
 ```
 
 ## 📊 Data Structure
@@ -276,27 +257,9 @@ import { getStateByName } from 'us-state-flags';
 // Available as global: usStateFlags
 
 // React Component
-import { USStateFlags } from 'us-state-flags/components';
+import { USStateFlags } from 'us-state-flags';
 ```
-
-## 📄 License
-
-ISC License - see [LICENSE](LICENSE) file for details.
 
 ## 🤝 Contributing
 
-Contributions welcome! Please read our contributing guidelines and submit pull requests.
-
-## 📈 Changelog
-
-### v1.0.0
-- Initial release with SVG flags
-- Complete state data for all 50 states + DC
-- React component with 15+ customization props
-- Zero dependencies for core functionality
-- Universal compatibility (Node.js + Browser)
-- Full TypeScript support
-
----
-
-**Made with ❤️ for the JavaScript community**
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.

@@ -131,28 +131,8 @@ const renderFlag = () => {
   const FlagComponent = FlagComponentsMap[stateData.abbreviation];
   
   if (!FlagComponent) {
-    const dimensions = getFlagDimensions();
-    return React.createElement('div', {
-      key: 'flag-error',
-      className: 'flag-error',
-      style: {
-        width: dimensions.width,
-        height: dimensions.height,
-        backgroundColor: '#ffebee',
-        border: '1px solid #ffcdd2',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        fontSize: '10px',
-        color: '#d32f2f',
-        borderRadius: '4px',
-        flexDirection: 'column',
-        flexShrink: 0 // Prevent flag from shrinking
-      }
-    }, [
-      React.createElement('span', { key: 'icon' }, '🚫'),
-      React.createElement('span', { key: 'text', style: { marginTop: '2px' } }, 'Flag N/A')
-    ]);
+    // Return null instead of rendering error display
+    return null;
   }
   
   const dimensions = getFlagDimensions();
@@ -178,50 +158,51 @@ const renderFlag = () => {
   });
 };
 
-  // Error display component
-  if (errors.length > 0) {
-    const errorChildren = [];
-    
-    const isStateNotFound = errors.length === 1 && errors[0].includes('not found');
-    const headerText = isStateNotFound ? 
-      `State "${state}" not found` : 
-      'Configuration Error:';
-    const icon = isStateNotFound ? '❌' : '⚠️';
-    
-    errorChildren.push(React.createElement('div', {
-      key: 'error-header',
-      style: { fontWeight: 'bold', marginBottom: '4px' }
-    }, `${icon} ${headerText}`));
-    
-    if (errors.length > 1 || !isStateNotFound) {
-      if (errors.length === 1 && !isStateNotFound) {
-        errorChildren.push(React.createElement('div', {
-          key: 'single-error',
-          style: { marginLeft: '4px' }
-        }, `• ${errors[0]}`));
-      } else if (errors.length > 1) {
-        errorChildren.push(React.createElement('ul', {
-          key: 'error-list',
-          style: { margin: '0', paddingLeft: '16px' }
-        }, errors.map((error, index) => 
-          React.createElement('li', { key: index }, error)
-        )));
-      }
-    }
-    
-    return React.createElement('div', {
-      className: `us-state-display error ${className}`,
-      style: {
-        color: '#d32f2f',
-        padding: '8px',
-        border: '1px solid #ffcdd2',
-        backgroundColor: '#ffebee',
-        borderRadius: '4px',
-        fontSize: '14px',
-        ...style
-      }
-    }, errorChildren);
+if (errors.length > 0) {
+  const isStateNotFound = errors.length === 1 && errors[0].includes('not found');
+  
+  // If it's just a state not found error, return null (render nothing)
+  if (isStateNotFound) {
+    return null;
   }
+  
+  // For other configuration errors, still show the error
+  const errorChildren = [];
+  const headerText = 'Configuration Error:';
+  const icon = '⚠️';
+  
+  errorChildren.push(React.createElement('div', {
+    key: 'error-header',
+    style: { fontWeight: 'bold', marginBottom: '4px' }
+  }, `${icon} ${headerText}`));
+  
+  if (errors.length === 1) {
+    errorChildren.push(React.createElement('div', {
+      key: 'single-error',
+      style: { marginLeft: '4px' }
+    }, `• ${errors[0]}`));
+  } else {
+    errorChildren.push(React.createElement('ul', {
+      key: 'error-list',
+      style: { margin: '0', paddingLeft: '16px' }
+    }, errors.map((error, index) => 
+      React.createElement('li', { key: index }, error)
+    )));
+  }
+  
+  return React.createElement('div', {
+    className: `us-state-display error ${className}`,
+    style: {
+      color: '#d32f2f',
+      padding: '8px',
+      border: '1px solid #ffcdd2',
+      backgroundColor: '#ffebee',
+      borderRadius: '4px',
+      fontSize: '14px',
+      ...style
+    }
+  }, errorChildren);
+}
 
   // Main component structure
   const nameElement = showName && React.createElement('span', {

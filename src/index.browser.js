@@ -683,6 +683,71 @@
           "logo": {
               "svg": "/assets/flags/svg/DC.svg"
           }
+      },
+      {
+          "name": "Puerto Rico",
+          "abbreviation": "PR",
+          "territory": true,
+          "capital": "San Juan",
+          "contiguous": false,
+          "timezone": [
+              "America/Puerto_Rico"
+          ],
+          "logo": {
+              "svg": "/assets/flags/svg/PR.svg"
+          }
+      },
+      {
+          "name": "US Virgin Islands",
+          "abbreviation": "VI",
+          "territory": true,
+          "capital": "Charlotte Amalie",
+          "contiguous": false,
+          "timezone": [
+              "America/St_Thomas"
+          ],
+          "logo": {
+              "svg": "/assets/flags/svg/VI.svg"
+          }
+      },
+      {
+          "name": "Guam",
+          "abbreviation": "GU",
+          "territory": true,
+          "capital": "Hagåtña",
+          "contiguous": false,
+          "timezone": [
+              "Pacific/Guam"
+          ],
+          "logo": {
+              "svg": "/assets/flags/svg/GU.svg"
+          }
+      },
+      {
+          "name": "American Samoa",
+          "abbreviation": "AS",
+          "territory": true,
+          "capital": "Pago Pago",
+          "contiguous": false,
+          "timezone": [
+              "Pacific/Pago_Pago"
+          ],
+          "logo": {
+              "svg": "/assets/flags/svg/AS.svg"
+          }
+      },
+      {
+          "name": "Northern Mariana Islands",
+          "abbreviation": "MP",
+          "territory": true,
+          "capital": "Saipan",
+          "contiguous": false,
+          "timezone": [
+              "Pacific/Saipan"
+          ],
+          "logo": {
+              "svg": "/assets/flags/svg/MP.svg"
+          }
       }
   ];
 

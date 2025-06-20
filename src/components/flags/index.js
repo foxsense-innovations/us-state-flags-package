@@ -50,6 +50,11 @@ const FlagWA = require('./FlagWA');
 const FlagWI = require('./FlagWI');
 const FlagWV = require('./FlagWV');
 const FlagWY = require('./FlagWY');
+const FlagAS = require('./FlagAS');
+const FlagMP = require('./FlagMP');
+const FlagVI = require('./FlagVI');
+const FlagPR = require('./FlagPR');
+const FlagGU = require('./FlagGU');
 
 const FlagComponentsMap = {
   'AK': FlagAK,
@@ -103,6 +108,11 @@ const FlagComponentsMap = {
   'WI': FlagWI,
   'WV': FlagWV,
   'WY': FlagWY,
+  'AS': FlagAS, 
+  'GU': FlagGU, 
+  'MP': FlagMP, 
+  'PR': FlagPR, 
+  'VI': FlagVI, 
 };
 
 module.exports = {

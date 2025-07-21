@@ -1,6 +1,6 @@
 {
   "name": "us-state-flags",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Complete US state data with flags, utility functions, and React component - zero dependencies for data, optional React support - SVG-only flags, offline ready",
   "main": "src/index.js",
   "module": "src/index.mjs",

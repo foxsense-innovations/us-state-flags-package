@@ -880,8 +880,8 @@ export let USStateFlags = null;
 
 try {
   // Dynamic import for React component
-  const componentModule = await import('./components/USStateFlags.jsx');  // Changed filename
-  USStateFlags = componentModule.default || componentModule.USStateFlags;  // Changed component name
+  const componentModule = import('./components/USStateFlags.jsx');  
+  USStateFlags = componentModule.default || componentModule.USStateFlags;  
 } catch (error) {
   // Component not available
   USStateFlags = null;  

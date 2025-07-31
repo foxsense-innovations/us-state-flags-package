@@ -1,4 +1,4 @@
-const React = require('react');
+import React from 'react';
 
 const FlagIA = function(props) {
   const defaultWidth = props.width || 75;
@@ -30,4 +30,4 @@ const FlagIA = function(props) {
 
 FlagIA.displayName = 'FlagIA';
 
-module.exports = FlagIA;
+export default FlagIA;

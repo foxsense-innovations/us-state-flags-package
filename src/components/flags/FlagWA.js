@@ -1,4 +1,4 @@
-const React = require('react');
+import React from 'react';
 
 const FlagWA = function(props) {
   const defaultWidth = props.width || 75;
@@ -30,4 +30,4 @@ const FlagWA = function(props) {
 
 FlagWA.displayName = 'FlagWA';
 
-module.exports = FlagWA;
+export default FlagWA;

@@ -1,4 +1,4 @@
-const React = require('react');
+import React from 'react';
 
 /**
  * US Virgin Islands Flag Component
@@ -32,4 +32,4 @@ const FlagVI = function(props) {
 };
 
 FlagVI.displayName = 'FlagVI';
-module.exports = FlagVI;
+export default FlagVI;

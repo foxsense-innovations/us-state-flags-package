@@ -1,4 +1,4 @@
-const React = require('react');
+import React from 'react';
 
 const FlagVT = function(props) {
   const defaultWidth = props.width || 75;
@@ -30,4 +30,4 @@ const FlagVT = function(props) {
 
 FlagVT.displayName = 'FlagVT';
 
-module.exports = FlagVT;
+export default FlagVT;

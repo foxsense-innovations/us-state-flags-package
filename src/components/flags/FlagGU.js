@@ -1,4 +1,4 @@
-const React = require('react');
+import React from 'react';
 
 /**
  * Guam Flag Component
@@ -32,4 +32,4 @@ const FlagGU = function(props) {
 };
 
 FlagGU.displayName = 'FlagGU';
-module.exports = FlagGU;
+export default FlagGU;

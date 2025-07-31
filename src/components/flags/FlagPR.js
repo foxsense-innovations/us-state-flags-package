@@ -1,4 +1,4 @@
-const React = require('react');
+import React from 'react';
 
 /**
  * Puerto Rico Flag Component
@@ -32,4 +32,4 @@ const FlagPR = function(props) {
 };
 
 FlagPR.displayName = 'FlagPR';
-module.exports = FlagPR;
+export default FlagPR;

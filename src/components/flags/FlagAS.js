@@ -1,4 +1,4 @@
-const React = require('react');
+import React from 'react';
 
 /**
  * American Samoa Flag Component
@@ -32,4 +32,4 @@ const FlagAS = function(props) {
 };
 
 FlagAS.displayName = 'FlagAS';
-module.exports = FlagAS;
+export default FlagAS;

@@ -1,4 +1,4 @@
-const React = require('react');
+import React from 'react';
 
 const FlagFL = function(props) {
   const defaultWidth = props.width || 75;
@@ -30,4 +30,4 @@ const FlagFL = function(props) {
 
 FlagFL.displayName = 'FlagFL';
 
-module.exports = FlagFL;
+export default FlagFL;

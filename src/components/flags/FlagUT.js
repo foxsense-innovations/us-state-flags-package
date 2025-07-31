@@ -1,4 +1,4 @@
-const React = require('react');
+import React from 'react';
 
 const FlagUT = function(props) {
   const defaultWidth = props.width || 75;
@@ -30,4 +30,4 @@ const FlagUT = function(props) {
 
 FlagUT.displayName = 'FlagUT';
 
-module.exports = FlagUT;
+export default FlagUT;

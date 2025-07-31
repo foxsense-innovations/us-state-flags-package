@@ -1,4 +1,4 @@
-const React = require('react');
+import React from 'react';
 
 /**
  * Northern Mariana Islands Flag Component
@@ -32,4 +32,4 @@ const FlagMP = function(props) {
 };
 
 FlagMP.displayName = 'FlagMP';
-module.exports = FlagMP;
+export default FlagMP;

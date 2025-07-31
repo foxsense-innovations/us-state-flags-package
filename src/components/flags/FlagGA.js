@@ -1,4 +1,4 @@
-const React = require('react');
+import React from 'react';
 
 const FlagGA = function(props) {
   const defaultWidth = props.width || 75;
@@ -30,4 +30,4 @@ const FlagGA = function(props) {
 
 FlagGA.displayName = 'FlagGA';
 
-module.exports = FlagGA;
+export default FlagGA;

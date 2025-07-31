@@ -1,4 +1,4 @@
-const React = require('react');
+import React from 'react';
 
 const FlagOR = function(props) {
   const defaultWidth = props.width || 75;
@@ -30,4 +30,4 @@ const FlagOR = function(props) {
 
 FlagOR.displayName = 'FlagOR';
 
-module.exports = FlagOR;
+export default FlagOR;

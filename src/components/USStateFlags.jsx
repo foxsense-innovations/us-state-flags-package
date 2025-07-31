@@ -1,19 +1,7 @@
-const React = require('react');
-const { useState, useEffect } = React;
-const PropTypes = require('prop-types');
-
-const statesData = require('../data/states.json');
-
-let FlagComponentsMap, FlagAspectRatios;
-try {
-  const flagsModule = require('./flags');
-  FlagComponentsMap = flagsModule.FlagComponentsMap || {};
-  FlagAspectRatios = flagsModule.FlagAspectRatios || {};
-} catch (error) {
-  console.warn('Flag components not found. Make sure flag components are generated.');
-  FlagComponentsMap = {};
-  FlagAspectRatios = {};
-}
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import statesData from '../data/states.json';
+import { FlagComponentsMap, FlagAspectRatios } from './flags/index.js';
 
 // Helper functions
 const getStateByName = (name) => {
@@ -319,4 +307,4 @@ USStateFlags.propTypes = {
 USStateFlags.displayName = 'USStateFlags';
 
 // CommonJS export
-module.exports = USStateFlags;
+export default USStateFlags;

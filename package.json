@@ -1,27 +1,22 @@
 {
   "name": "us-state-flags",
-  "version": "1.0.6",
+  "version": "1.0.5",
   "description": "Complete US state data with flags, utility functions, and React component - zero dependencies for data, optional React support - SVG-only flags, offline ready",
-  "main": "src/index.js",
+  "type": "module",
+  "main": "src/index.mjs",
   "module": "src/index.mjs",
-  "browser": "src/index.browser.js",
   "types": "src/index.d.ts",
   "exports": {
-    ".": {
-      "types": "./src/index.d.ts",
-      "import": "./src/index.mjs",
-      "require": "./src/index.js",
-      "browser": "./src/index.browser.js",
-      "default": "./src/index.js"
-    },
-    "./components": {
-      "types": "./src/components/index.d.ts",
-      "import": "./src/components/index.js",
-      "require": "./src/components/index.js",
-      "default": "./src/components/index.js"
-    },
-    "./package.json": "./package.json"
+  ".": {
+    "types": "./src/index.d.ts",
+    "import": "./src/index.mjs",
+    "default": "./src/index.mjs"
   },
+  "./USStateFlags": {
+    "import": "./src/components/USStateFlags.jsx",
+    "default": "./src/components/USStateFlags.jsx"
+  }
+},
   "scripts": {
     "prepublishOnly": "node -e \"console.log('✅ Package ready for publish')\""
   },
@@ -82,11 +77,12 @@
   "homepage": "https://foxsense-innovations.github.io/us-state-flags-home-page/",
   "license": "ISC",
   "files": [
-    "src/data/",
-    "src/index.*",
-    "src/components/",
-    "README.md"
-  ],
+  "src/data/",
+  "src/index.mjs",
+  "src/index.d.ts",
+  "src/components/",
+  "README.md"
+],
   "engines": {
     "node": ">=14.0.0"
   },

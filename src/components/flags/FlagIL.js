@@ -1,4 +1,4 @@
-const React = require('react');
+import React from 'react';
 
 const FlagIL = function(props) {
   const defaultWidth = props.width || 75;
@@ -30,4 +30,4 @@ const FlagIL = function(props) {
 
 FlagIL.displayName = 'FlagIL';
 
-module.exports = FlagIL;
+export default FlagIL;

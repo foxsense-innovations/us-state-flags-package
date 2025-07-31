@@ -1,62 +1,62 @@
 // Auto-generated flag components index
-const FlagAK = require('./FlagAK');
-const FlagAL = require('./FlagAL');
-const FlagAR = require('./FlagAR');
-const FlagAZ = require('./FlagAZ');
-const FlagCA = require('./FlagCA');
-const FlagCO = require('./FlagCO');
-const FlagCT = require('./FlagCT');
-const FlagDC = require('./FlagDC');
-const FlagDE = require('./FlagDE');
-const FlagFL = require('./FlagFL');
-const FlagGA = require('./FlagGA');
-const FlagHI = require('./FlagHI');
-const FlagIA = require('./FlagIA');
-const FlagID = require('./FlagID');
-const FlagIL = require('./FlagIL');
-const FlagIN = require('./FlagIN');
-const FlagKS = require('./FlagKS');
-const FlagKY = require('./FlagKY');
-const FlagLA = require('./FlagLA');
-const FlagMA = require('./FlagMA');
-const FlagMD = require('./FlagMD');
-const FlagME = require('./FlagME');
-const FlagMI = require('./FlagMI');
-const FlagMN = require('./FlagMN');
-const FlagMO = require('./FlagMO');
-const FlagMS = require('./FlagMS');
-const FlagMT = require('./FlagMT');
-const FlagNC = require('./FlagNC');
-const FlagND = require('./FlagND');
-const FlagNE = require('./FlagNE');
-const FlagNH = require('./FlagNH');
-const FlagNJ = require('./FlagNJ');
-const FlagNM = require('./FlagNM');
-const FlagNV = require('./FlagNV');
-const FlagNY = require('./FlagNY');
-const FlagOH = require('./FlagOH');
-const FlagOK = require('./FlagOK');
-const FlagOR = require('./FlagOR');
-const FlagPA = require('./FlagPA');
-const FlagRI = require('./FlagRI');
-const FlagSC = require('./FlagSC');
-const FlagSD = require('./FlagSD');
-const FlagTN = require('./FlagTN');
-const FlagTX = require('./FlagTX');
-const FlagUT = require('./FlagUT');
-const FlagVA = require('./FlagVA');
-const FlagVT = require('./FlagVT');
-const FlagWA = require('./FlagWA');
-const FlagWI = require('./FlagWI');
-const FlagWV = require('./FlagWV');
-const FlagWY = require('./FlagWY');
-const FlagAS = require('./FlagAS');
-const FlagMP = require('./FlagMP');
-const FlagVI = require('./FlagVI');
-const FlagPR = require('./FlagPR');
-const FlagGU = require('./FlagGU');
+import FlagAK from './FlagAK.js';
+import FlagAL from './FlagAL.js';
+import FlagAR from './FlagAR.js';
+import FlagAZ from './FlagAZ.js';
+import FlagCA from './FlagCA.js';
+import FlagCO from './FlagCO.js';
+import FlagCT from './FlagCT.js';
+import FlagDC from './FlagDC.js';
+import FlagDE from './FlagDE.js';
+import FlagFL from './FlagFL.js';
+import FlagGA from './FlagGA.js';
+import FlagHI from './FlagHI.js';
+import FlagIA from './FlagIA.js';
+import FlagID from './FlagID.js';
+import FlagIL from './FlagIL.js';
+import FlagIN from './FlagIN.js';
+import FlagKS from './FlagKS.js';
+import FlagKY from './FlagKY.js';
+import FlagLA from './FlagLA.js';
+import FlagMA from './FlagMA.js';
+import FlagMD from './FlagMD.js';
+import FlagME from './FlagME.js';
+import FlagMI from './FlagMI.js';
+import FlagMN from './FlagMN.js';
+import FlagMO from './FlagMO.js';
+import FlagMS from './FlagMS.js';
+import FlagMT from './FlagMT.js';
+import FlagNC from './FlagNC.js';
+import FlagND from './FlagND.js';
+import FlagNE from './FlagNE.js';
+import FlagNH from './FlagNH.js';
+import FlagNJ from './FlagNJ.js';
+import FlagNM from './FlagNM.js';
+import FlagNV from './FlagNV.js';
+import FlagNY from './FlagNY.js';
+import FlagOH from './FlagOH.js';
+import FlagOK from './FlagOK.js';
+import FlagOR from './FlagOR.js';
+import FlagPA from './FlagPA.js';
+import FlagRI from './FlagRI.js';
+import FlagSC from './FlagSC.js';
+import FlagSD from './FlagSD.js';
+import FlagTN from './FlagTN.js';
+import FlagTX from './FlagTX.js';
+import FlagUT from './FlagUT.js';
+import FlagVA from './FlagVA.js';
+import FlagVT from './FlagVT.js';
+import FlagWA from './FlagWA.js';
+import FlagWI from './FlagWI.js';
+import FlagWV from './FlagWV.js';
+import FlagWY from './FlagWY.js';
+import FlagAS from './FlagAS.js';
+import FlagMP from './FlagMP.js';
+import FlagVI from './FlagVI.js';
+import FlagPR from './FlagPR.js';
+import FlagGU from './FlagGU.js';
 
-const FlagComponentsMap = {
+export const FlagComponentsMap = {
   'AK': FlagAK,
   'AL': FlagAL,
   'AR': FlagAR,
@@ -115,6 +115,6 @@ const FlagComponentsMap = {
   'VI': FlagVI, 
 };
 
-module.exports = {
-  FlagComponentsMap: FlagComponentsMap
+export const FlagAspectRatios = {
+  // Add your aspect ratios here if you have them
 };

@@ -878,15 +878,16 @@ export function getStatesBySharedTimezone(stateAbbr) {
 
 export let USStateFlags = null;
 
-try {
-  // Dynamic import for React component
-  const componentModule = import('./components/USStateFlags.jsx');  
-  USStateFlags = componentModule.default || componentModule.USStateFlags;  
-} catch (error) {
-  // Component not available
-  USStateFlags = null;  
-}
-
+(async () => {
+  try {
+    // Dynamic import for React component
+    const componentModule = await import('./components/USStateFlags.jsx');
+    USStateFlags = componentModule.default || componentModule.USStateFlags;
+  } catch (error) {
+    console.error('Failed to load USStateFlags component:', error);
+    USStateFlags = null;
+  }
+})();
 // Export states data
 export const states = statesData;
 
